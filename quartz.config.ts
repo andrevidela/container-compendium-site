@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Quartz 4",
+    pageTitle: "Container Compendium",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -16,7 +16,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "quartz.jzhao.xyz",
+    baseUrl: "andrevidela.github.io/container-compendium-site",
     ignorePatterns: ["private", "templates", ".obsidian",
           "vault/build", "vault/tex", "vault/docgen", "vault/.obsidian", "vault/font", "vault/Images", "vault/Illustrations"],
     defaultDateType: "modified",
