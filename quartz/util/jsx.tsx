@@ -10,6 +10,17 @@ const customComponents: Components = {
       <table {...props} />
     </div>
   ),
+  // hast-util-to-jsx-runtime passes script text as JSX children, and Preact's
+  // renderer HTML-escapes all text children — turning & into &amp; etc.
+  // For TikZJax scripts the content is LaTeX (tikz-cd uses & and " heavily),
+  // so we bypass escaping with dangerouslySetInnerHTML.
+  script: ({ children, ...props }) => {
+    if (props.type === "text/tikz") {
+      const raw = Array.isArray(children) ? children.join("") : String(children ?? "")
+      return <script {...props} dangerouslySetInnerHTML={{ __html: raw }} />
+    }
+    return <script {...props}>{children}</script>
+  },
 }
 
 export function htmlToJsx(fp: FilePath, tree: Node) {

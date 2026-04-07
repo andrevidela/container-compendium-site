@@ -1,10 +1,97 @@
 import { QuartzTransformerPlugin } from "../types"
+import { visit } from "unist-util-visit"
+import { Element, Root } from "hast"
+import { Plugin } from "unified"
 
 // Fenced block types used in the literate Idris source files
 const MATH_BLOCK_TYPES = ["definition", "proposition", "lemma", "theorem", "postulate"] as const
 
 // TikZJax script — renders TikZ/tikz-cd diagrams client-side via WebAssembly
 const TIKZJAX_SRC = "https://tikzjax.com/v1/tikzjax.js"
+
+/**
+ * rehype plugin: finds <pre><code class="language-tikz"> nodes produced by the
+ * markdown fenced-code parser and replaces them with a <figure> containing a
+ * <script type="text/tikz"> element.
+ *
+ * We do this as a rehype (HTML AST) plugin rather than in textTransform so that
+ * the tikz content is kept as a raw hast text node and never HTML-encoded.
+ * If we inject raw `<script>` HTML in textTransform the unified serializer
+ * encodes `&` → `&amp;` and `"` → `&quot;` inside the tag, breaking tikz-cd
+ * which uses both as column separators and label delimiters.
+ */
+const rehypeTikz: Plugin<[], Root> = () => (tree) => {
+  visit(tree, "element", (node: Element, index, parent) => {
+    if (
+      node.tagName !== "pre" ||
+      !parent ||
+      index === undefined ||
+      index === null
+    )
+      return
+
+    const code = node.children[0]
+    if (
+      code?.type !== "element" ||
+      (code as Element).tagName !== "code"
+    )
+      return
+
+    const codeEl = code as Element
+    const cls = (codeEl.properties?.className as string[]) ?? []
+    if (!cls.includes("language-tikz")) return
+
+    // Raw tikz source (the markdown parser leaves it as a text node)
+    const rawText = codeEl.children
+      .filter((c) => c.type === "text")
+      .map((c) => (c as { type: "text"; value: string }).value)
+      .join("")
+
+    // Extract caption from data attributes set by remark-gfm meta parsing
+    // (the `{caption="..."}` part of ```tikz {caption="..."})
+    const meta: string = (node.data as { meta?: string })?.meta ?? ""
+    const captionMatch = meta.match(/caption="([^"]*)"/)
+    const caption = captionMatch ? captionMatch[1] : null
+
+    // Strip LaTeX document boilerplate that TikZJax doesn't need
+    const tikzContent = rawText
+      .replace(/\\usepackage\{[^}]*\}\n?/g, "")
+      .replace(/\\begin\{document\}\n?/g, "")
+      .replace(/\\end\{document\}\n?/g, "")
+      .trim()
+
+    // Build the replacement <figure> node.
+    // The <script> text node is intentionally a raw hast text node so that
+    // hast-util-to-html writes it verbatim (no HTML encoding).
+    const figureChildren: Element["children"] = [
+      {
+        type: "element",
+        tagName: "script",
+        properties: { type: "text/tikz" },
+        // hast serialises text children of <script> as raw text — no encoding
+        children: [{ type: "text", value: tikzContent }],
+      },
+    ]
+
+    if (caption) {
+      figureChildren.push({
+        type: "element",
+        tagName: "figcaption",
+        properties: {},
+        children: [{ type: "text", value: caption }],
+      })
+    }
+
+    const figure: Element = {
+      type: "element",
+      tagName: "figure",
+      properties: { className: ["tikz-figure"] },
+      children: figureChildren,
+    }
+
+    ;(parent.children as Element["children"])[index] = figure
+  })
+}
 
 /**
  * Transforms literate Idris markdown files (.idr.md) for web publishing:
@@ -63,8 +150,12 @@ export const LiterateIdris: QuartzTransformerPlugin = () => {
         return `> [!${type}]\n${quotedContent}\n`
       }
 
-      // 3a. Quadruple-backtick form (may contain inner ``` code blocks)
-      src = src.replace(new RegExp(`\`\`\`\`(${typePattern})\\n([\\s\\S]*?)\`\`\`\``, "g"), toCallout)
+      // 3a. Quadruple-backtick form (may contain inner ``` code blocks).
+      //     Optional {label=...} attribute is accepted and discarded.
+      src = src.replace(
+        new RegExp(`\`\`\`\`(${typePattern})(\\s+\\{[^}]*\\})?\\n([\\s\\S]*?)\`\`\`\``, "g"),
+        (_match, type: string, _attrs: string, content: string) => toCallout(_match, type, content),
+      )
 
       // 3b. Triple-backtick form with optional {attributes} (prose only)
       src = src.replace(
@@ -72,35 +163,18 @@ export const LiterateIdris: QuartzTransformerPlugin = () => {
         (_match, type: string, _attrs: string, content: string) => toCallout(_match, type, content),
       )
 
-      // 4. Convert ```tikz {caption="..."} ... ``` blocks into TikZJax elements.
-      //    TikZJax renders TikZ/tikz-cd diagrams in the browser via WebAssembly.
-      //    The LaTeX preamble boilerplate (\usepackage, \begin{document}, etc.) is
-      //    stripped; only the body content (tikzcd environments etc.) is kept.
-      src = src.replace(
-        /```tikz(\s+\{([^}]*)\})?\n([\s\S]*?)```/g,
-        (_match, _attrBlock: string, attrs: string, body: string) => {
-          // Extract caption="..." from the attribute string if present
-          const captionMatch = attrs?.match(/caption="([^"]*)"/)
-          const caption = captionMatch ? captionMatch[1] : null
-
-          // Strip LaTeX document boilerplate that TikZJax doesn't need
-          const tikzContent = body
-            .replace(/\\usepackage\{[^}]*\}\n?/g, "")
-            .replace(/\\begin\{document\}\n?/g, "")
-            .replace(/\\end\{document\}\n?/g, "")
-            .trim()
-
-          const figcaption = caption ? `\n<figcaption>${caption}</figcaption>` : ""
-          return `\n<figure class="tikz-figure">\n<script type="text/tikz">\n${tikzContent}\n</script>${figcaption}\n</figure>\n`
-        },
-      )
-
-      // 5. Remap `idris` language tag to `haskell` for syntax highlighting.
+      // 4. Remap `idris` language tag to `haskell` for syntax highlighting.
       //    shiki (used by rehype-pretty-code) does not include an Idris grammar.
       //    Haskell shares enough syntax that highlighting is useful rather than absent.
       src = src.replace(/```idris(\s)/g, "```haskell$1")
 
       return src
+    },
+    htmlPlugins() {
+      // 4. Replace ```tikz``` fenced blocks with TikZJax <script> elements.
+      //    Done as a rehype plugin (not textTransform) to keep LaTeX content as
+      //    raw text nodes, preventing the HTML serializer from encoding & and ".
+      return [rehypeTikz]
     },
     externalResources() {
       return {
