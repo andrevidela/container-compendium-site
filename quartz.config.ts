@@ -18,7 +18,8 @@ const config: QuartzConfig = {
     locale: "en-US",
     baseUrl: "andrevidela.github.io/container-compendium-site",
     ignorePatterns: ["private", "templates", ".obsidian",
-          "vault/build", "vault/tex", "vault/docgen", "vault/.obsidian", "vault/font", "vault/Images", "vault/Illustrations"],
+          "vault/build", "vault/tex", "vault/docgen", "vault/.obsidian", "vault/font", "vault/Images", "vault/Illustrations",
+          "vault/Templates", "vault/Thesis"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
