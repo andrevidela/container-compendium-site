@@ -1,3 +1,55 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// TikZ diagrams rendered by TikZJax
+figure.tikz-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0;
+
+  figcaption {
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-size: 0.9em;
+    color: var(--darkgray);
+    text-align: center;
+  }
+}
+
+// Callout colors for mathematical block types, matching the LaTeX preamble:
+//   definition  → green   (green!30 border / green!2 bg)
+//   proposition → orange  (orange!30 / orange!2)
+//   lemma       → amber   (yellow!20 / yellow!1)
+//   theorem     → purple  (purple!30 / purple!3)
+//   postulate   → red     (red!30 / red!3)
+.callout {
+  &[data-callout="definition"] {
+    --color: #388e3c;
+    --border: #388e3c44;
+    --bg: #388e3c0d;
+  }
+
+  &[data-callout="proposition"] {
+    --color: #e65100;
+    --border: #e6510044;
+    --bg: #e651000d;
+  }
+
+  &[data-callout="lemma"] {
+    --color: #f9a825;
+    --border: #f9a82544;
+    --bg: #f9a8250d;
+  }
+
+  &[data-callout="theorem"] {
+    --color: #7b1fa2;
+    --border: #7b1fa244;
+    --bg: #7b1fa20d;
+  }
+
+  &[data-callout="postulate"] {
+    --color: #c62828;
+    --border: #c6282844;
+    --bg: #c628280d;
+  }
+}

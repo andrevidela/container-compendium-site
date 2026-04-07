@@ -1,0 +1,131 @@
+package container-compendium
+version = 0.1.0
+authors = "Andre Videla"
+-- maintainers =
+-- license =
+-- brief =
+-- readme =
+-- homepage =
+-- sourceloc =
+-- bugtracker =
+
+-- the Idris2 version required (e.g. langversion >= 0.5.1)
+-- langversion
+
+-- packages to add to search path
+depends = contrib, fs-utils
+
+-- modules to install
+modules = Container_compendium
+        , APLAS
+        , Proofs.Void
+        , Proofs.UIP
+        , Proofs.Preorder
+        , Proofs.Sigma
+        , Proofs.Extensionality
+        , Proofs.Unit
+        , Proofs.Congruence
+        , Data.Alg
+        , Data.Boundary
+        , Data.Category
+        , Data.Category.Action
+        , Data.Category.Bicategory
+        , Data.Category.Bicategory.Set
+        , Data.Category.Bifunctor
+        , Data.Category.Bifunctor.Apply
+        , Data.Category.Distrib
+        , Data.Category.Endofunctor
+        , Data.Category.Functor
+        , Data.Category.Functor.Category
+        , Data.Category.Functor.Exponential
+        , Data.Category.Iso
+        , Data.Category.Kleisli
+        , Data.Category.Monad
+        , Data.Category.Monad.Cartesian
+        , Data.Category.Monoid
+        , Data.Category.NaturalTransformation
+        , Data.Category.Ops
+        , Data.Category.Product
+        , Data.Category.Set
+        , Data.Coproduct
+        , Data.Container
+        , Data.Container.Category
+        , Data.Container.Cartesian
+        , Data.Container.Cartesian.Monoidal
+        , Data.Container.Cartesian.Tensor.Monoidal
+        , Data.Container.Coproduct.Definition
+        , Data.Container.Coproduct.Bifunctor
+        , Data.Container.Definition
+        , Data.Container.Descriptions.Maybe
+        , Data.Container.Descriptions.List
+        , Data.Container.Distrib
+        , Data.Container.Displayed
+        , Data.Container.Effects
+        , Data.Container.Fix
+        , Data.Container.ForallSeq.Definition
+        , Data.Container.ForallSeq.Bifunctor
+        , Data.Container.ForallSeq.Action
+        , Data.Container.Lift
+        , Data.Container.ListMaybe
+        , Data.Container.List.Functor
+        , Data.Container.List.Monad
+        , Data.Container.Maybe
+        , Data.Container.Maybe.Desc
+        , Data.Container.Maybe.Functor
+        , Data.Container.Maybe.Monad
+        , Data.Container.Monad
+        , Data.Container.MonadInterface
+        , Data.Container.Morphism
+        , Data.Container.Morphism.Chart
+        , Data.Container.Sequence.Definition
+        , Data.Container.Sequence.Bifunctor
+        , Data.Container.Sequence.Monoidal
+        , Data.Ops
+        , Data.Product
+        , Data.Sigma
+        , Data.List.IxMonad
+	    , Data.Maybe.Any
+	    , Data.Maybe.IxMonad
+        , Interactive.Bidirectional
+        , Interactive.Commands
+        , Interactive.ErrorLocation
+        , Interactive.Tactics
+        , Interactive.Pollack
+        , Interactive.Sequent
+        , Interactive.Server
+        , Interactive.Desugaring
+        , Interactive.Server.Request
+        , Interactive.Server.Response
+        , Interactive.Server.Serialise
+        , Optics.Existential
+        , Optics.Traversal
+        , Optics.Lens
+        , Optics.VanLaarhoven
+
+-- main file (i.e. file to load at REPL)
+-- main =
+
+-- name of executable
+-- executable =
+opts = "--total"
+sourcedir = "src"
+-- builddir =
+-- outputdir =
+
+-- script to run before building
+-- prebuild =
+
+-- script to run after building
+-- postbuild =
+
+-- script to run after building, before installing
+-- preinstall =
+
+-- script to run after installing
+-- postinstall =
+
+-- script to run before cleaning
+-- preclean =
+
+-- script to run after cleaning
+-- postclean =

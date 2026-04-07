@@ -1,0 +1,30 @@
+
+% A general theory of APIs
+% Programming interfaces and their programs
+% The programs between programs
+% Living at the edge of programs
+% What goes in must come out
+% input-response programs
+% An API always calls back
+
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+
+\documentclass{article}
+
+\title{A Theory of Composable APIs}
+\author{Andr\'e Videla}
+
+
+\input{preamble.tex}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\tableofcontents
+

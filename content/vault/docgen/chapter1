@@ -1,0 +1,16 @@
+../Thesis/Chapter 1.md
+newline
+../Thesis/About Idris as a Theorem Prover.md
+newline
+../src/Data/Category.idr.md
+newline
+../src/Data/Container.idr.md
+newline
+../src/Data/Container/Category.idr.md
+newline
+../src/Data/Category/Action.idr.md
+newline
+../src/Data/Category/Monad.idr.md
+newline
+../src/Data/Container/List/Monad.idr.md
+newline

@@ -17,7 +17,8 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "quartz.jzhao.xyz",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: ["private", "templates", ".obsidian",
+          "vault/build", "vault/tex", "vault/docgen", "vault/.obsidian", "vault/font", "vault/Images", "vault/Illustrations"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
@@ -55,6 +56,7 @@ const config: QuartzConfig = {
   },
   plugins: {
     transformers: [
+      Plugin.LiterateIdris(),
       Plugin.FrontMatter(),
       Plugin.CreatedModifiedDate({
         priority: ["frontmatter", "git", "filesystem"],
@@ -71,7 +73,32 @@ const config: QuartzConfig = {
       Plugin.TableOfContents(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Description(),
-      Plugin.Latex({ renderEngine: "katex" }),
+      Plugin.Latex({
+        renderEngine: "katex",
+        customMacros: {
+          // Category shortcuts
+          "\\cat": "\\mathcal{#1}",
+          "\\Poly": "\\mathcal{P}oly",
+          "\\Cont": "\\mathcal{C}ont",
+          "\\Set": "\\mathcal{S}et",
+          "\\ContCart": "\\mathcal{C}ont^{\\#}",
+          "\\Type": "\\mathit{Type}",
+          // Morphism hom-set
+          "\\mor": "\\mathcal{#1}(#2,#3)",
+          // Container notation (A, \bar A)
+          "\\cbar": "(#1,\\bar{#1})",
+          // Composition operators
+          "\\compose": "\\mathbin{\\rhd}",
+          "\\comp": "\\mathbin{;}",
+          "\\ncomp": "\\mathbin{;_{#1}}",
+          "\\vcomp": "\\mathbin{;_v}",
+          "\\hcomp": "\\mathbin{;_h}",
+          "\\forallSeq": "\\mathbin{\\blacktriangleright}",
+          "\\UnivComp": "\\mathbin{\\blacktriangleright}",
+          // Spacing
+          "\\of": "\\text{ }",
+        },
+      }),
     ],
     filters: [Plugin.RemoveDrafts()],
     emitters: [

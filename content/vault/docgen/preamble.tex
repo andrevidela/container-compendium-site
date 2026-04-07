@@ -1,0 +1,430 @@
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  total={160mm,257mm},
+  left=25mm,
+  top=20mm,
+}
+
+\usepackage{stmaryrd}
+\usepackage{bussproofs}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyvrb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{sectsty}
+\usepackage{titlesec}
+\usepackage{amssymb}
+\usepackage[dvipsnames,x11names]{xcolor}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{wrapfig}
+\usepackage{array}
+\usepackage{dirtytalk}
+\usepackage{ifthen}
+\usepackage{framed}
+\usepackage{tcolorbox}
+\usepackage{unicode-math}
+\usepackage{pgfpages}
+\usepackage{pgfkeys}
+\usepackage{setspace}
+\usepackage{iftex}
+\usepackage{keyval}
+\usepackage{mdframed}
+\usepackage{biblatex} %Imports biblatex package
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  % \defaultfontfeatures{Scale=MatchLowercase}
+  % \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+    commandchars=\\\{\},
+    frame=lines,
+    rulecolor=\color{lightgray}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{fancyvrb}
+\usepackage[x11names]{xcolor}
+\newcommand{\Katla}                [2][]{\VerbatimInput[commandchars=\\\{\}#1]{#2}}
+\newcommand{\KatlaNewline}            {}
+\newcommand{\KatlaSpace}              { }
+\newcommand{\KatlaDash}               {\string-}
+\newcommand{\KatlaUnderscore}         {\string_}
+\newcommand{\KatlaTilde}              {\string~}
+\newcommand{\IdrisHlightFont}         {\ttfamily}
+\newcommand{\IdrisHlightStyleData}    {}
+\newcommand{\IdrisHlightStyleType}    {}
+\newcommand{\IdrisHlightStyleBound}   {}
+\newcommand{\IdrisHlightStyleFunction}{}
+\newcommand{\IdrisHlightStyleKeyword} {\bfseries}
+\newcommand{\IdrisHlightStyleImplicit}{}
+\newcommand{\IdrisHlightStyleComment} {\itshape}
+\newcommand{\IdrisHlightStyleHole}    {\bfseries}
+\newcommand{\IdrisHlightStyleNamespace}{\itshape}
+\newcommand{\IdrisHlightStylePostulate}{\bfseries}
+\newcommand{\IdrisHlightStyleModule}   {\itshape}
+
+\newcommand{\IdrisHlightColourData}    {IndianRed1}
+\newcommand{\IdrisHlightColourType}    {DeepSkyBlue3}
+\newcommand{\IdrisHlightColourBound}   {DarkOrchid3}
+\newcommand{\IdrisHlightColourFunction}{Chartreuse4}
+\newcommand{\IdrisHlightColourKeyword} {black}
+\newcommand{\IdrisHlightColourImplicit}{DarkOrchid3}
+\newcommand{\IdrisHlightColourComment} {Ivory3}
+\newcommand{\IdrisHlightColourHole}    {yellow}
+\newcommand{\IdrisHlightColourNamespace}{black}
+\newcommand{\IdrisHlightColourPostulate}{DarkOrchid3}
+\newcommand{\IdrisHlightColourModule}   {black}
+
+\newcommand{\IdrisHole}[1]{{%
+    \colorbox{\IdrisHlightColourHole}{%
+      \IdrisHlightStyleHole\IdrisHlightFont%
+      #1}}}
+
+\newcommand{\RawIdrisHighlight}[3]{{\textcolor{#1}{\IdrisHlightFont#2{#3}}}}
+
+\newcommand{\IdrisData}[1]{\RawIdrisHighlight{\IdrisHlightColourData}{\IdrisHlightStyleData}{#1}}
+\newcommand{\IdrisType}[1]{\RawIdrisHighlight{\IdrisHlightColourType}{\IdrisHlightStyleType}{#1}}
+\newcommand{\IdrisBound}[1]{\RawIdrisHighlight{\IdrisHlightColourBound}{\IdrisHlightStyleBound}{#1}}
+\newcommand{\IdrisFunction}[1]{\RawIdrisHighlight{\IdrisHlightColourFunction}{\IdrisHlightStyleFunction}{#1}}
+\newcommand{\IdrisKeyword}[1]{\RawIdrisHighlight{\IdrisHlightColourKeyword}{\IdrisHlightStyleKeyword}{#1}}
+\newcommand{\IdrisImplicit}[1]{\RawIdrisHighlight{\IdrisHlightColourImplicit}{\IdrisHlightStyleImplicit}{#1}}
+\newcommand{\IdrisComment}[1]{\RawIdrisHighlight{\IdrisHlightColourComment}{\IdrisHlightStyleComment}{#1}}
+\newcommand{\IdrisNamespace}[1]{\RawIdrisHighlight{\IdrisHlightColourNamespace}{\IdrisHlightStyleNamespace}{#1}}
+\newcommand{\IdrisPostulate}[1]{\RawIdrisHighlight{\IdrisHlightColourPostulate}{\IdrisHlightStylePostulate}{#1}}
+\newcommand{\IdrisModule}[1]{\RawIdrisHighlight{\IdrisHlightColourModule}{\IdrisHlightStyleModule}{#1}}
+
+\DefineVerbatimEnvironment%
+{code}{Verbatim}{commandchars=\\\{\}, frame=single}
+
+% Bugfix in fancyvrb to allow inline saved listings
+\makeatletter
+\let\FV@ProcessLine\relax
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\usepackage{fontspec}
+
+% Simple active character approach
+% \catcode`⊗=\active
+% \protected\def⊗{⊗} % This preserves the character as-is
+\setmonofont[
+    Path = ../font/JetBrains_Mono/static/,
+    Renderer=Harfbuzz,
+    UprightFont = *-Regular,
+    ItalicFont = *-Italic,
+    Scale=0.9]
+    {JetBrainsMono}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+}
+
+\usepackage{pmboxdraw}
+\usepackage{newunicodechar}
+%\newunicodechar{└}{\textSFii}
+%\newunicodechar{├}{\textSFviii}
+%\newunicodechar{─}{\textSFx}
+%\newunicodechar{∀}{$\forall$}
+%\newunicodechar{η}{$\eta$}
+%\newunicodechar{μ}{$\mu$}
+%\newunicodechar{→}{$\to$}
+%\newunicodechar{⊕}{$\oplus$}
+%\newunicodechar{∈}{$\in$}
+%\newunicodechar{∋}{$\ni$}
+%\newunicodechar{≡}{$\equiv$}
+%\newunicodechar{⊃}{$\supset$}
+%\newunicodechar{⊂}{$\subset$}
+%\newunicodechar{√}{$\sqrt{}$}
+%\newunicodechar{∫}{$\int$}
+%\newunicodechar{╲}{\textbackslash} % Not sure about this one
+%\newunicodechar{○}{$\circ$}
+%\newunicodechar{Σ}{$\Sigma$}
+%\newunicodechar{π}{$\pi$}
+%\newunicodechar{λ}{$\lambda$}
+\newunicodechar{⨾}{;}
+%\newunicodechar{⊗}{$\otimes$}
+%% For XeLaTeX only
+%\XeTeXinterchartokenstate=1
+%\newXeTeXintercharclass\unicodemath
+%\XeTeXcharclass`⊗=\unicodemath
+%\XeTeXinterchartoks 0 \unicodemath = {\ensuremath{\otimes}}
+%
+%\newunicodechar{Π}{$\Pi$}
+%\newunicodechar{φ}{$\varphi$}
+
+\newcommand{\of}{\text{ }}
+\newcommand{\cat}[1]{\mathcal{#1}}
+\newcommand{\Poly}{\cat{Poly}}
+\newcommand{\Cont}{\cat{Cont}}
+\newcommand{\Set}{\cat{Set}}
+\newcommand{\ContCart}{\cat{Cont}^{\#}}
+\newcommand{\Type}{\mathit{Type}}
+\newcommand{\mor}[3]{\mathcal{#1}(#2, #3)}  % morphisms
+\newcommand{\cbar}[1]{(#1, \bar{#1})} % (A, \bar A) containers
+% The traditional composition
+\newcommand{\compose}{\mathbin{\rhd}}
+% The "universal composition" monoidal action
+\newcommand{\forallSeq}{\mathbin{\blacktriangleright}}
+\newcommand{\UnivComp}{\forallSeq}
+
+\newcommand{\figref}[1]{(\textbf{Figure}~\ref{#1})}
+\newcommand{\secref}[1]{(\textbf{Section}~\ref{#1})}
+\newcommand{\defref}[1]{(\textbf{Definition}~\ref{#1})}
+\newcommand{\lemref}[1]{(\textbf{Lemma}~\ref{#1})}
+\newcommand{\propref}[1]{(\textbf{Proposition}~\ref{#1})}
+\newcommand{\thmref}[1]{(\textbf{Theorem}~\ref{#1})}
+\newcommand{\postref}[1]{(\textbf{Postulate}~\ref{#1})}
+\newcommand{\comp}{\mathbin{;}}
+\newcommand{\ncomp}[1]{\mathbin{;_#1}}
+\newcommand{\vcomp}{\mathbin{;_v}}
+\newcommand{\hcomp}{\mathbin{;_h}}
+
+
+\usetikzlibrary{graphs}
+\usetikzlibrary{arrows.meta}
+\makeatletter
+
+\newcommand*{\RightArrow}{\mathrel{\mathpalette{\@RightArrow}{}}}
+\newcommand*{\@RightArrow}[1]{%
+    % Get the line width for this math style
+    \edef\@LineWidth{%
+        \the\fontdimen8
+        \ifx#1\displaystyle\textfont
+        \else\ifx#1\textstyle\textfont
+        \else\ifx#1\scriptstyle\scriptfont
+        \else\scriptscriptfont
+        \fi\fi\fi
+        3}
+    \edef\@ScaleWidth{%
+        \ifx#1\displaystyle0.39
+        \else\ifx#1\textstyle0.39
+        \else\ifx#1\scriptstyle0.35
+        \else0.31
+        \fi\fi\fi}
+    \text{$\tikz
+    \draw[double equal sign distance, line width=\@LineWidth,
+    -{Implies[sep=-0.5ex] . Computer Modern Rightarrow[scale width=\@ScaleWidth, scale length=0.8]}]
+    (0,0) -- (1.5em,0);$}}
+\newcommand*{\Implies}{\DOTSB\;\RightArrow\;}
+
+% Theorems, declarations, etc
+% Proposition colors
+\mdfdefinestyle{postulateframe}{
+    leftmargin=0pt,
+    rightmargin=0pt,
+    innerleftmargin=15pt,
+    innerrightmargin=10pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    linewidth=4pt,
+    topline=false,
+    rightline=false,
+    bottomline=false,
+    leftline=true,
+    linecolor=red!30,
+    backgroundcolor=red!3
+}
+
+% Theorem colors
+\mdfdefinestyle{theoremframe}{
+    leftmargin=0pt,
+    rightmargin=0pt,
+    innerleftmargin=15pt,
+    innerrightmargin=10pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    linewidth=4pt,
+    topline=false,
+    rightline=false,
+    bottomline=false,
+    leftline=true,
+    linecolor=blue,
+    linecolor=purple!30,
+    backgroundcolor=purple!3
+}
+% Theorem colors
+\mdfdefinestyle{lemmaframe}{
+    leftmargin=0pt,
+    rightmargin=0pt,
+    innerleftmargin=15pt,
+    innerrightmargin=10pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    linewidth=4pt,
+    topline=false,
+    rightline=false,
+    bottomline=false,
+    leftline=true,
+    linecolor=yellow!20,
+    backgroundcolor=yellow!1
+}
+
+% Theorem colors
+\mdfdefinestyle{propositionframe}{
+    leftmargin=0pt,
+    rightmargin=0pt,
+    innerleftmargin=15pt,
+    innerrightmargin=10pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    linewidth=4pt,
+    topline=false,
+    rightline=false,
+    bottomline=false,
+    leftline=true,
+    %jlinecolor=blue,
+    linecolor=orange!30,
+    backgroundcolor=orange!2
+}
+% Theorem colors
+\mdfdefinestyle{definitionframe}{
+    leftmargin=0pt,
+    rightmargin=0pt,
+    innerleftmargin=15pt,
+    innerrightmargin=10pt,
+    innertopmargin=8pt,
+    innerbottommargin=8pt,
+    linewidth=4pt,
+    topline=false,
+    rightline=false,
+    bottomline=false,
+    leftline=true,
+    linecolor=green!30,
+    backgroundcolor=green!2
+}
+
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{defn}{Definition}
+\newtheorem{post}{Postulate}
+
+
+% Apply the frame to your existing theorem
+\surroundwithmdframed[style=definitionframe]{defn}
+\surroundwithmdframed[style=propositionframe]{prop}
+\surroundwithmdframed[style=lemmaframe]{lemma}
+\surroundwithmdframed[style=theoremframe]{thm}
+\surroundwithmdframed[style=postulateframe]{post}
+
+%% Pentagon diagram macro
+\pgfkeys{
+  /pentagon/.cd,
+  node top left/.code={\def\penttopleft{#1}},
+  node top right/.code={\def\penttopright{#1}},
+  node mid left/.code={\def\pentmidleft{#1}},
+  node bottom left/.code={\def\pentbottomleft{#1}},
+  node bottom right/.code={\def\pentbottomright{#1}},
+  arrow top/.code={\def\penttop{#1}},
+  arrow left/.code={\def\pentleft{#1}},
+  arrow right/.code={\def\pentright{#1}},
+  arrow bottom left/.code={\def\pentbottomleftarrow{#1}},
+  arrow bottom right/.code={\def\pentbottomrightarrow{#1}},
+}
+
+% Initialize all macros to avoid undefined errors
+\def\penttopleft{}
+\def\penttopright{}
+\def\pentmidleft{}
+\def\pentbottomleft{}
+\def\pentbottomright{}
+\def\penttop{}
+\def\pentleft{}
+\def\pentright{}
+\def\pentbottomleftarrow{}
+\def\pentbottomrightarrow{}
+
+\newcommand{\pentagondiagram}[1]{%
+  \pgfkeys{/pentagon/.cd, #1}%
+  \begin{tikzcd}[ampersand replacement=\&]
+    {\penttopleft} \& \& {\penttopright} \\
+    {\pentmidleft} \& \& {} \\
+    {\pentbottomleft} \& \& {\pentbottomright}
+    \arrow[from=1-1, to=1-3, "\penttop"]
+    \arrow[from=1-1, to=2-1, "\pentleft"]
+    \arrow[from=1-3, to=3-3, "\pentright"]
+    \arrow[from=2-1, to=3-1, "\pentbottomleftarrow"]
+    \arrow[from=3-1, to=3-3, "\pentbottomrightarrow"]
+  \end{tikzcd}
+}
+
+\addbibresource{Thesis-bib.bib} %Import the bibliography file
+

@@ -1,0 +1,36 @@
+collection = "nightly-260301"
+
+[idris2]
+url="https://github.com/andrevidela/Idris2"
+commit="879e91783c6f3fdb06d7f7c45b0dd83f8a19c299"
+
+[custom.all.setoid]
+type="git"
+url="https://github.com/andrevidela/idris-setoid.git"
+commit="52212816ad0c9981f8b31ead516f018221b9ebc4"
+ipkg="setoid.ipkg"
+
+[custom.all.katla-pandoc]
+type   = "github"
+url    = "https://github.com/idris-community/katla.git"
+commit = "main"
+ipkg   = "katla-pandoc.ipkg"
+
+
+[custom.all.pipelines]
+type="git"
+url="https://gitlab.com/glaive-research/pipelines"
+commit="4508be7c94e2bad60f98e29f3450806f0104868b"
+ipkg="pipelines.ipkg"
+
+[custom.all.container-compendium]
+type="local"
+path="."
+ipkg="container-compendium.ipkg"
+
+[custom.all.fs-utils]
+type = "git"
+url = "https://gitlab.com/avidela/fs-utils"
+commit = "650c710a75e8516e7be688f1b5dbb48b44b05985"
+ipkg = "fs-utils.ipkg"
+

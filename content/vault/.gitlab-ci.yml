@@ -1,0 +1,29 @@
+default:
+    image: ghcr.io/stefan-hoeck/idris2-pack:nightly-260301
+
+stages:
+    - build
+    - thesis
+
+# build-package:
+#     stage : build
+#     script:
+#       - apt update
+#       - apt upgrade -y
+#       - apt install libsqlite3-dev -y
+#       - pack --no-prompt build container-compendium.ipkg
+
+build-thesis:
+    stage: thesis
+    script:
+        - apt update
+        - apt upgrade -y
+        - DEBIAN_FRONTEND=noninteractive apt install texlive pandoc texlive-xetex texlive-science texlive-bibtex-extra biber latexmk -y
+        - pack install-app katla katla-pandoc
+        - cd docgen
+        - ./buildDoc.sh --project-dir .. files --cli
+
+    artifacts:
+      paths:
+        - docgen/output.pdf
+
